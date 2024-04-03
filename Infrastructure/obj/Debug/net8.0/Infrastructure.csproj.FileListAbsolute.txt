@@ -17,3 +17,4 @@ C:\Users\PC\source\repos\CleanArchitecture\Infrastructure\obj\Debug\net8.0\refin
 C:\Users\PC\source\repos\CleanArchitecture\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
 C:\Users\PC\source\repos\CleanArchitecture\Infrastructure\obj\Debug\net8.0\Infrastructure.genruntimeconfig.cache
 C:\Users\PC\source\repos\CleanArchitecture\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
+C:\Users\PC\source\repos\CleanArchitecture\Infrastructure\obj\Debug\net8.0\Infrastructure.sourcelink.json

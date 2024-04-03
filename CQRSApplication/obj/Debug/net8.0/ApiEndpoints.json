@@ -17,6 +17,27 @@
   },
   {
     "ContainingType": "CQRSApplication.Controllers.UserController",
+    "Method": "GetUser",
+    "RelativePath": "api/User/Login",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CQRSApplication.Controllers.UserController",
     "Method": "RegisterUser",
     "RelativePath": "api/User/Register",
     "HttpMethod": "POST",

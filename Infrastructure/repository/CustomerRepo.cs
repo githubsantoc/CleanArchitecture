@@ -21,7 +21,7 @@ namespace Infrastructure.repository
 
         public async Task AddAsync(Customer customer)
         {
-            await context.customers.AddAsync(customer);
+            /*await context.customers.AddAsync(customer);*/
             await context.SaveChangesAsync();
         }
     }

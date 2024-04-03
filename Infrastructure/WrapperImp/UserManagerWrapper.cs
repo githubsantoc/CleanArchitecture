@@ -24,7 +24,7 @@ namespace Infrastructure.WrapperImp
 
         public async Task<IdentityResult> AddToRoleAsync(User user, string role)
         {
-            var applicationUser = _mapper.Map<ApplicationUser>(user);
+            var applicationUser = await _userManager.FindByEmailAsync(user.Email);
             return await _userManager.AddToRoleAsync(applicationUser, role);
         }
 
@@ -32,6 +32,30 @@ namespace Infrastructure.WrapperImp
         {
             var applicationUser = _mapper.Map<ApplicationUser>(user);
             return await _userManager.CreateAsync(applicationUser, password); ;
+        }
+
+        public async Task<User> FindByEmailAs(string email)
+        {
+            var appUser = await _userManager.FindByEmailAsync(email.ToUpperInvariant());
+            return _mapper.Map<User>(appUser);
+        }
+
+        public async Task<bool> CheckPWAsync(User user, string password)
+        {
+            var applicationUser = await _userManager.FindByEmailAsync(user.Email);
+            return await _userManager.CheckPasswordAsync(applicationUser, password);
+        }
+
+        public async Task<IList<string>> GetRolesAs(User user)
+        {
+            var applicationUser = await _userManager.FindByEmailAsync(user.Email);
+            return await _userManager.GetRolesAsync(applicationUser);
+        }
+
+        public async Task<IdentityResult> UpdateAs(User user)
+        {
+            var appUser = await _userManager.FindByEmailAsync(user.Email);
+            return await _userManager.UpdateAsync(appUser);
         }
     }
 }

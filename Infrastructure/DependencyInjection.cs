@@ -1,9 +1,11 @@
 ﻿
 using Application.Mapper;
+using Application.services;
 using Application.Wrapper;
 using Domains.repository;
 using Infrastructure.context;
 using Infrastructure.repository;
+using Infrastructure.services;
 using Infrastructure.WrapperImp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -35,6 +37,9 @@ namespace Infrastructure
 
             services.AddScoped<IUserWrapper, UserManagerWrapper>();
             services.AddScoped<IRoleWrapper, RoleManagerWrapper>();
+
+            services.AddTransient<IMailServices, MailServices>();
+
 
             services.AddTransient<ICustomerRepo, CustomerRepo>();
 

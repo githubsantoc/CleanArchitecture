@@ -26,7 +26,7 @@ namespace Infrastructure.context
         }
 
         public DbSet<ApplicationUser> users { get; set; }
-        public DbSet<Customer> customers { get; set; }
+        /*public DbSet<Customer> customers { get; set; }*/
 
     }
 }

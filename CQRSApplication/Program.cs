@@ -1,6 +1,7 @@
 using Application;
 using Application.Wrapper;
 using CQRSApplication;
+using Hangfire;
 using Infrastructure;
 using Infrastructure.WrapperImp;
 using Microsoft.AspNetCore.Identity;
@@ -21,8 +22,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
+
 builder.Services
-    .AddAppliServices()
+    .AddAppliServices(builder.Configuration)
     .AddInfraServices(builder.Configuration)
     .AddPresentation();
 

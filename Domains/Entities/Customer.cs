@@ -18,7 +18,7 @@ namespace Domains.Entities
             public bool Active { get; set; } = true;
            
             public required string UserId { get; set; }
-            public User? User { get; set; }
+            public virtual User? User { get; set; } 
 
         
     }

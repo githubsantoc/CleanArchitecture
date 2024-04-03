@@ -42,8 +42,8 @@ namespace Application.UsersCommand.Handlers
             var user = new User
             {
                  Id = Guid.NewGuid().ToString(),
-                  Email = command.email,
-               //   UserName = command.Name
+                 Email = command.email,
+                 UserName = command.Name
             };
             return user;
         }

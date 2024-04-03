@@ -14,6 +14,12 @@ namespace Application.Wrapper
         Task<IdentityResult> CreateUserAsync(User user, string password);
 
         Task<IdentityResult> AddToRoleAsync(User user, string role);
+
+        Task<User> FindByEmailAs( string email);
+        Task<bool> CheckPWAsync(User user, string password);
+        Task<IList<string>> GetRolesAs(User user);
+        Task<IdentityResult> UpdateAs(User user);
+        
        
     }
 }

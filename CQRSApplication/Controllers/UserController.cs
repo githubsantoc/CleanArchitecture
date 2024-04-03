@@ -29,5 +29,20 @@ namespace CQRSApplication.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpGet("Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetUser([FromQuery] CreateLoginQuery u1, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var data1 = await _mediator.Send(u1, cancellationToken);
+                return data1 == null ? throw new Exception("null response") : (IActionResult)Ok(data1);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

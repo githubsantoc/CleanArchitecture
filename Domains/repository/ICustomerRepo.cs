@@ -10,7 +10,8 @@ namespace Domains.repository
     public interface ICustomerRepo
     {
         Task AddAsy(Customer customer);
-        Task FirstOrDefaultAsy(Customer customer); 
+        Task<Customer?> FirstOrDefaultAsy(int id); 
         Task<List<Customer>> ToListAsy();
+        Task UpdateAsy(Customer customer);
     }
 }

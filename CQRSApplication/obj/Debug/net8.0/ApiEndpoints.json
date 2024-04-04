@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "command",
-        "Type": "Application.Command.CustomerCommand.CreateCustomerCommand",
+        "Type": "Application.Command.CustomerCommand.Command.CreateCustomerCommand",
         "IsRequired": true
       }
     ],
@@ -23,6 +23,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Infrastructure.Controllers.CustomerController",
+    "Method": "UpdateCustomer",
+    "RelativePath": "api/Customer/UpdateCustomer",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "Application.Command.CustomerCommand.Command.UpdateCustomerCommand",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -66,6 +82,11 @@
       },
       {
         "Name": "Password",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PhoneNumber",
         "Type": "System.String",
         "IsRequired": false
       },

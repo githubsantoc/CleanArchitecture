@@ -1,4 +1,4 @@
-﻿using Application.Command.CustomerCommand;
+﻿using Application.Command.CustomerCommand.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;

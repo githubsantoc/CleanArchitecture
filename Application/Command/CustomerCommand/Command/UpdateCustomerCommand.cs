@@ -5,15 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Command.CustomerCommand
+namespace Application.Command.CustomerCommand.Command
 {
-    public class CreateCustomerCommand : IRequest<string>
+    public class UpdateCustomerCommand : IRequest<string>
     {
+        public int CustomerId { get; set; }
         public string? Name { get; set; }
-        public string? Email { get; set; }
         public string? Address { get; set; }
-        public string? PhoneNumber { get; set; }
         public bool Active { get; set; } = true;
-        public string? Product { get; set; }
     }
 }

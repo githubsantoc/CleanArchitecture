@@ -1,4 +1,5 @@
-﻿using Application.Wrapper;
+﻿using Application.Command.CustomerCommand.Command;
+using Application.Wrapper;
 using Domains.Entities;
 using Domains.repository;
 using MediatR;
@@ -26,7 +27,7 @@ namespace Application.Command.CustomerCommand.Handler
             {
                 Name = request.Name,
                 Address = request.Address,
-                PhoneNumber = request.PhoneNumber,
+                PhoneNumber = user.PhoneNumber,
                 UserId = user.Id
             };
 

@@ -44,7 +44,8 @@ namespace Application.Command.UsersCommand.Handlers
             {
                 Id = Guid.NewGuid().ToString(),
                 Email = command.email,
-                UserName = command.Name
+                UserName = command.Name,
+                PhoneNumber = command.PhoneNumber
             };
             return user;
         }

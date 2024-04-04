@@ -1,4 +1,5 @@
-﻿using Domains.Entities;
+﻿using Application.Wrapper;
+using Domains.Entities;
 using Domains.repository;
 using MediatR;
 using System;
@@ -11,14 +12,14 @@ namespace Application.Command.UsersCommand.Handlers
 {
     public class GetUserListHandler : IRequestHandler<GetUserListQuery, List<User>>
     {
-        private readonly IUserRepo _userRepo;
-        public GetUserListHandler(IUserRepo userRepo)
+        private readonly IUserWrapper _userManager;
+        public GetUserListHandler(IUserWrapper userManager)
         {
-            _userRepo = userRepo;
+            _userManager = userManager;
         }
         public async Task<List<User>> Handle(GetUserListQuery request, CancellationToken cancellationToken)
         {
-            return await _userRepo.ToListAs();
+            return await _userManager.ToListAs();
         }
     }
 }

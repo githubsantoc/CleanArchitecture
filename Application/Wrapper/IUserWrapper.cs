@@ -19,10 +19,7 @@ namespace Application.Wrapper
         Task<IdentityResult> UpdateAs(User user);
         Task<User> FindByNameAsy(string username);
         Task<List<User>> GetUsersInRoleAsy(string role);
-        
-
-        
-       
+        Task<List<User>> ToListAs();
     }
 }
 

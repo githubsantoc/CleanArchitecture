@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.WrapperImp
+namespace Infrastructure.persistance.WrapperImp
 {
     public class RoleManagerWrapper : IRoleWrapper
     {

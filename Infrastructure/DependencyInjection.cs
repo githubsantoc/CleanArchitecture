@@ -8,8 +8,9 @@ using Infrastructure.Authentication;
 using Infrastructure.context;
 using Infrastructure.ModelDto;
 using Infrastructure.persistance;
+using Infrastructure.persistance.validator;
+using Infrastructure.persistance.WrapperImp;
 using Infrastructure.services;
-using Infrastructure.WrapperImp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -44,9 +45,8 @@ namespace Infrastructure
             services.AddTransient<IMailServices, MailServices>();
             services.AddTransient<IJwtToken, JwtTokenGenerator>();
 
-
             services.AddTransient<ICustomerRepo, CustomerRepo>();
-            services.AddTransient<IUserRepo, UserRepo>();
+            services.AddScoped<IEmailExistsValidator, EmailExistsValidation>();
 
             return services;
         }

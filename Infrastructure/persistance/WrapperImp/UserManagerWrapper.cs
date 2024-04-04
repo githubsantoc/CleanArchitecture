@@ -4,13 +4,14 @@ using Domains.Entities;
 using Infrastructure.ModelDto;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.WrapperImp
+namespace Infrastructure.persistance.WrapperImp
 {
     public class UserManagerWrapper : IUserWrapper
     {
@@ -62,9 +63,9 @@ namespace Infrastructure.WrapperImp
 
         public async Task<User> FindByNameAsy(string username)
         {
-            var appUser = await _userManager.FindByNameAsync(username); 
+            var appUser = await _userManager.FindByNameAsync(username);
             return _mapper.Map<User>(appUser);
-            
+
         }
 
         public async Task<List<User>> GetUsersInRoleAsy(string role)
@@ -73,6 +74,13 @@ namespace Infrastructure.WrapperImp
             return _mapper.Map<List<User>>(appUser);
         }
 
-       
+        public async Task<List<User>> ToListAs()
+        {
+            var user = await _userManager.Users.ToListAsync();
+            var appUser = _mapper.Map<List<User>>(user);
+            return appUser;
+        }
+
+
     }
 }

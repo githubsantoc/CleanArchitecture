@@ -1,7 +1,9 @@
-﻿using Application.Command.UsersCommand;
+﻿
+using Application.Validation;
 using Application.Wrapper;
 using AutoMapper;
 using Domains.Entities;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -16,11 +18,13 @@ namespace Application.Command.UsersCommand.Handlers
     {
         private readonly IRoleWrapper _role;
         private readonly IUserWrapper _user;
+        private readonly RegisterValidator _validator;
 
-        public CreateUserCommandHandler(IUserWrapper user, IRoleWrapper roleManager)
+        public CreateUserCommandHandler(IUserWrapper user, IRoleWrapper roleManager, RegisterValidator validator)
         {
             _role = roleManager;
             _user = user;
+            _validator = validator;
         }
 
         public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -28,7 +32,7 @@ namespace Application.Command.UsersCommand.Handlers
             var user = createUser(request);
             //it is added to validate if user email already exist in db or not
 
-            /*new RegisterValidator(_context).ValidateAndThrow(command); // Use Validate*/
+            _validator.ValidateAndThrow(request); // Use Validate*/
 
 
             // Store user data in NetUsers database table

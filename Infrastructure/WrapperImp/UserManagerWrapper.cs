@@ -1,6 +1,7 @@
 ﻿using Application.Wrapper;
 using AutoMapper;
 using Domains.Entities;
+using Infrastructure.ModelDto;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -55,7 +56,15 @@ namespace Infrastructure.WrapperImp
         public async Task<IdentityResult> UpdateAs(User user)
         {
             var appUser = await _userManager.FindByEmailAsync(user.Email);
+            appUser.LoginDateTime = user.LoginDateTime;
             return await _userManager.UpdateAsync(appUser);
+        }
+
+        public async Task<User> FindByNameAsy(string username)
+        {
+            var appUser = await _userManager.FindByNameAsync(username); 
+            return _mapper.Map<User>(appUser);
+            
         }
     }
 }

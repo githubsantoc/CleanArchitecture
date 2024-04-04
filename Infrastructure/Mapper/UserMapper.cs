@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domains.Entities;
-using Infrastructure;
+using Infrastructure.ModelDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;

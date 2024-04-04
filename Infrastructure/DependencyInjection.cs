@@ -4,6 +4,7 @@ using Application.services;
 using Application.Wrapper;
 using Domains.repository;
 using Infrastructure.context;
+using Infrastructure.ModelDto;
 using Infrastructure.repository;
 using Infrastructure.services;
 using Infrastructure.WrapperImp;
@@ -42,6 +43,7 @@ namespace Infrastructure
 
 
             services.AddTransient<ICustomerRepo, CustomerRepo>();
+            services.AddTransient<IUserRepo, UserRepo>();
 
             return services;
         }

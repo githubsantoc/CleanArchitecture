@@ -1,4 +1,5 @@
 ﻿using Domains.Entities;
+using Infrastructure.ModelDto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -22,11 +23,16 @@ namespace Infrastructure.context
             builder.Entity<ApplicationUser>()
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
+
+            builder.Entity<Customer>()
+                .HasOne<ApplicationUser>()
+                .WithMany()
+                .HasForeignKey(c => c.UserId);
            
         }
 
         public DbSet<ApplicationUser> users { get; set; }
-        /*public DbSet<Customer> customers { get; set; }*/
+        public DbSet<Customer> customers { get; set; }
 
     }
 }

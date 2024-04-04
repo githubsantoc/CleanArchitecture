@@ -9,10 +9,20 @@
     "Parameters": [
       {
         "Name": "command",
-        "Type": "Application.Command.CreateCustomerCommand",
+        "Type": "Application.Command.CustomerCommand.CreateCustomerCommand",
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Infrastructure.Controllers.CustomerController",
+    "Method": "ReadCustomer",
+    "RelativePath": "api/Customer/GetCustomers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -65,6 +75,16 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CQRSApplication.Controllers.UserController",
+    "Method": "GetUserList",
+    "RelativePath": "api/User/UserList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

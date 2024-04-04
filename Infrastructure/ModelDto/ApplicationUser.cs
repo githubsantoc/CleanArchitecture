@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure
+namespace Infrastructure.ModelDto
 {
     public class ApplicationUser : IdentityUser<string>
     {

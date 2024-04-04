@@ -1,4 +1,4 @@
-﻿using Application.Command;
+﻿using Application.Command.CustomerCommand;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +32,21 @@ namespace Infrastructure.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetCustomers")]
+        public async Task<IActionResult> ReadCustomer(CancellationToken cancellationToken)
+        {
+            try
+            {
+                var query = new GetCustomerQuery();
+                var response = await _mediator.Send(query, cancellationToken);
+                return response == null ? throw new Exception("Response is null") : (IActionResult)Ok(response);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(501, $"Not Implemented : {e.Message}");
             }
         }
 

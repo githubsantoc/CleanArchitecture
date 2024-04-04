@@ -1,4 +1,5 @@
-﻿using Application.Wrapper;
+﻿using Application.Command.UsersCommand;
+using Application.Wrapper;
 using AutoMapper;
 using Domains.Entities;
 using MediatR;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.UsersCommand.Handlers
+namespace Application.Command.UsersCommand.Handlers
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
     {
@@ -41,13 +42,13 @@ namespace Application.UsersCommand.Handlers
         {
             var user = new User
             {
-                 Id = Guid.NewGuid().ToString(),
-                 Email = command.email,
-                 UserName = command.Name
+                Id = Guid.NewGuid().ToString(),
+                Email = command.email,
+                UserName = command.Name
             };
             return user;
         }
     }
-   
+
 }
-    
+

@@ -1,4 +1,4 @@
-﻿using Application.UsersCommand;
+﻿using Application.Command.UsersCommand;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +37,23 @@ namespace CQRSApplication.Controllers
             try
             {
                 var data1 = await _mediator.Send(u1, cancellationToken);
+                return data1 == null ? throw new Exception("null response") : (IActionResult)Ok(data1);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("UserList")]
+       
+        public async Task<IActionResult> GetUserList(CancellationToken cancellationToken)
+        {
+            try
+            {
+                var query = new GetUserListQuery();
+                var data1 = await _mediator.Send(query, cancellationToken);
                 return data1 == null ? throw new Exception("null response") : (IActionResult)Ok(data1);
             }
             catch (Exception e)

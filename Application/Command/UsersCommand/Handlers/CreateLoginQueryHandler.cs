@@ -14,8 +14,9 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
+using Application.Command.UsersCommand;
 
-namespace Application.UsersCommand.Handlers
+namespace Application.Command.UsersCommand.Handlers
 {
     public class CreateLoginQueryHandler : IRequestHandler<CreateLoginQuery, string>
     {

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.UsersCommand
+namespace Application.Command.UsersCommand
 {
-    public class CreateUserCommand :IRequest<User>
+    public class CreateUserCommand : IRequest<User>
     {
         public string? email { get; set; }
         public string? Name { get; set; }

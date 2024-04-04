@@ -19,6 +19,7 @@ namespace Application.Wrapper
         Task<bool> CheckPWAsync(User user, string password);
         Task<IList<string>> GetRolesAs(User user);
         Task<IdentityResult> UpdateAs(User user);
+        Task<User> FindByNameAsy(string username);
         
        
     }

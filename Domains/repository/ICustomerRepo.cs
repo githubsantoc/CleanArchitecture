@@ -9,6 +9,8 @@ namespace Domains.repository
 {
     public interface ICustomerRepo
     {
-        Task AddAsync(Customer customer);
+        Task AddAsy(Customer customer);
+        Task FirstOrDefaultAsy(Customer customer); 
+        Task<List<Customer>> ToListAsy();
     }
 }

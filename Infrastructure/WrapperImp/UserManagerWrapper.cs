@@ -47,7 +47,7 @@ namespace Infrastructure.WrapperImp
             return await _userManager.CheckPasswordAsync(applicationUser, password);
         }
 
-        public async Task<IList<string>> GetRolesAs(User user)
+        public async Task<IList<string>> GetRolesAsy(User user)
         {
             var applicationUser = await _userManager.FindByEmailAsync(user.Email);
             return await _userManager.GetRolesAsync(applicationUser);
@@ -66,5 +66,13 @@ namespace Infrastructure.WrapperImp
             return _mapper.Map<User>(appUser);
             
         }
+
+        public async Task<List<User>> GetUsersInRoleAsy(string role)
+        {
+            var appUser = await _userManager.GetUsersInRoleAsync(role);
+            return _mapper.Map<List<User>>(appUser);
+        }
+
+       
     }
 }

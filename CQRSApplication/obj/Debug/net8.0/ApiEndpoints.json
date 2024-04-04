@@ -42,6 +42,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "CQRSApplication.Controllers.HangFireAdminController",
+    "Method": "GenerateHangfire",
+    "RelativePath": "api/HangFireAdmin/api/HangFire",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Subject",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Body",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "CQRSApplication.Controllers.UserController",
     "Method": "GetUser",
     "RelativePath": "api/User/Login",

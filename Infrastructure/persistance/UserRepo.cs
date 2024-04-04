@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.repository
+namespace Infrastructure.persistance
 {
     public class UserRepo : IUserRepo
     {

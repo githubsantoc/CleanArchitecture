@@ -12,14 +12,15 @@ namespace Application.Wrapper
     public interface IUserWrapper
     {
         Task<IdentityResult> CreateUserAsync(User user, string password);
-
         Task<IdentityResult> AddToRoleAsync(User user, string role);
-
         Task<User> FindByEmailAs( string email);
         Task<bool> CheckPWAsync(User user, string password);
-        Task<IList<string>> GetRolesAs(User user);
+        Task<IList<string>> GetRolesAsy(User user);
         Task<IdentityResult> UpdateAs(User user);
         Task<User> FindByNameAsy(string username);
+        Task<List<User>> GetUsersInRoleAsy(string role);
+        
+
         
        
     }

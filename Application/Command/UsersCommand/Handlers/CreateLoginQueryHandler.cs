@@ -41,7 +41,7 @@ namespace Application.Command.UsersCommand.Handlers
             if (user != null && await _userManager.CheckPWAsync(user, request.Password))
             {
                 //assigning roles to the user and claim them
-                var roles = await _userManager.GetRolesAs(user);
+                var roles = await _userManager.GetRolesAsy(user);
                 var claims = new List<Claim>();
                 foreach (var role in roles)
                 {

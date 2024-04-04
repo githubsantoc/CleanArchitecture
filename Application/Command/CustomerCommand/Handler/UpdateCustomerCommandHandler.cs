@@ -14,12 +14,10 @@ namespace Application.Command.CustomerCommand.Handler
     public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, string>
     {
         private readonly ICustomerRepo _customer;
-        private readonly IUserWrapper _userManager;
 
-        public UpdateCustomerCommandHandler(ICustomerRepo customer, IUserWrapper userManager)
+        public UpdateCustomerCommandHandler(ICustomerRepo customer)
         {
             _customer = customer;
-            _userManager = userManager;
         }
         public async Task<string> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {

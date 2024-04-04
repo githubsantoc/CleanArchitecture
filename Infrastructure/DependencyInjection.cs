@@ -1,11 +1,13 @@
 ﻿
+using Application.common.Authentication;
 using Application.Mapper;
 using Application.services;
 using Application.Wrapper;
 using Domains.repository;
+using Infrastructure.Authentication;
 using Infrastructure.context;
 using Infrastructure.ModelDto;
-using Infrastructure.repository;
+using Infrastructure.persistance;
 using Infrastructure.services;
 using Infrastructure.WrapperImp;
 using Microsoft.AspNetCore.Builder;
@@ -40,6 +42,7 @@ namespace Infrastructure
             services.AddScoped<IRoleWrapper, RoleManagerWrapper>();
 
             services.AddTransient<IMailServices, MailServices>();
+            services.AddTransient<IJwtToken, JwtTokenGenerator>();
 
 
             services.AddTransient<ICustomerRepo, CustomerRepo>();

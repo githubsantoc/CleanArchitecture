@@ -13,6 +13,7 @@ using System.Text;
 using Application.Wrapper;
 using Microsoft.Extensions.Configuration;
 using Application.services;
+using Application.common.Authentication;
 
 namespace Application.Command.UsersCommand.Handlers
 {
@@ -20,15 +21,14 @@ namespace Application.Command.UsersCommand.Handlers
     {
 
         private readonly IUserWrapper _userManager;
-        private readonly IConfiguration _configuration;
+        private readonly IJwtToken _jwtToken;
         private readonly JWTandRefreshService _jwtAndRefreshService;
 
-        public RefreshTokenHandler(JWTandRefreshService jwtAndRefreshService, IUserWrapper userManager, IConfiguration configuration)
+        public RefreshTokenHandler(JWTandRefreshService jwtAndRefreshService, IUserWrapper userManager, IJwtToken jwtToken)
         {
-            //  _context = context;
             _jwtAndRefreshService = jwtAndRefreshService;
             _userManager = userManager;
-            _configuration = configuration;
+            _jwtToken = jwtToken;
         }
         public async Task<string> Handle(RefreshTokenQuery request, CancellationToken cancellationToken)
         {
@@ -38,19 +38,15 @@ namespace Application.Command.UsersCommand.Handlers
             if (_jwtAndRefreshService.RefreshToken != request.RefreshToken)
                 throw new Exception("Invalid refresh token");
 
-            //var principal = GetPrincipalFromExpiredToken(_jwtAndRefreshService.Jwt_refreshExp);
-            var principal = GetPrincipalFromExpiredToken(_jwtAndRefreshService.JwtToken, _jwtAndRefreshService.TokenExpiry);
-            /*  if (principal == null)
-              {
-                  throw new Exception("Invalid access token");
-              }*/
+            var principal = _jwtToken.GetPrincipalFromExpiredToken(_jwtAndRefreshService.JwtToken, _jwtAndRefreshService.TokenExpiry);
+            
             string username = principal.Identity.Name;
 
             var user = await _userManager.FindByNameAsy(username);
 
 
-            var jwtToken = CreateToken(principal.Claims.ToList());
-            var refreshToken = GenerateRefreshToken();
+            var jwtToken = _jwtToken.GenerateToken(principal.Claims.ToList());
+            var refreshToken = _jwtToken.GenerateRefreshToken();
 
 
             var token1 = new
@@ -64,55 +60,6 @@ namespace Application.Command.UsersCommand.Handlers
 
             return JsonConvert.SerializeObject(token1);
 
-        }
-        private string CreateToken(List<Claim> authClaims)
-        {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-
-            var token = new JwtSecurityToken(
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Issuer"],
-                expires: DateTime.Now.AddMinutes(5),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
-            var jwtToken = new JwtSecurityTokenHandler().WriteToken(token).ToString();
-            return jwtToken;
-        }
-        private static RefreshToken GenerateRefreshToken()
-        {
-            var refreshToken = new RefreshToken
-            {
-                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                Expired = DateTime.Now.AddMinutes(2)
-            };
-            return refreshToken;
-        }
-        public ClaimsPrincipal GetPrincipalFromExpiredToken(string s, DateTime d)
-        {
-            var Key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ValidateLifetime = false,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Key),
-                ClockSkew = TimeSpan.Zero
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var principal = tokenHandler.ValidateToken(s, tokenValidationParameters, out SecurityToken securityToken);
-            JwtSecurityToken? jwtSecurityToken = securityToken as JwtSecurityToken;
-            jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase);
-            /*if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-            {
-                throw new SecurityTokenException("Invalid token");
-            }*/
-            if (DateTime.Now > d)
-                throw new Exception("Refresh Token Expired!");
-            return principal;
         }
     }
 }

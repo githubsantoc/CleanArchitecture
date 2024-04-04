@@ -1,5 +1,7 @@
 using Application;
+using Application.Command.HangfireCommand;
 using CQRSApplication;
+using Hangfire;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -106,6 +108,11 @@ app.MapControllers();
             await rolesManager.CreateAsync(new IdentityRole(role));
     }
 }*/
+
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization = new[] { new MyAuthorizationFilter() }
+});
 
 app.Run();
 

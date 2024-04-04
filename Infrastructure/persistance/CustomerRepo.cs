@@ -10,7 +10,7 @@ using Infrastructure.context;
 using Infrastructure.ModelDto;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.repository
+namespace Infrastructure.persistance
 {
     public class CustomerRepo : ICustomerRepo
     {
@@ -20,7 +20,7 @@ namespace Infrastructure.repository
         public CustomerRepo(CQRSDbContext context)
         {
             this.context = context;
-           
+
         }
 
         public async Task AddAsy(Customer customer)
@@ -38,12 +38,12 @@ namespace Infrastructure.repository
         public async Task<Customer?> FirstOrDefaultAsy(int id)
         {
             return await context.customers.FirstOrDefaultAsync(x => x.Id == id);
-             
+
         }
 
         public async Task UpdateAsy(Customer customer)
         {
-             context.customers.Update(customer);
+            context.customers.Update(customer);
             await context.SaveChangesAsync();
         }
     }

@@ -1,0 +1,114 @@
+﻿@page
+@model CQRSApplication.Pages.IndexModel
+@{
+}
+
+<div class ="text-center">
+    <h1 class="display-4">@Model.Message</h1>
+    <p>This is my first razor pages</p>
+
+    <h2>Bar Chart</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <canvas id="barChart" style="max-width:600px; max-height:430px" onmouseout="OnResetInfo()"></canvas>
+        </div>
+        <div id ="info"class="col-md-4">
+            <p>Please hover in the color in the chart to get the more information about them.</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+
+<script>
+    var config = {
+        apiKey: "AIzaSyDHO4tZKn0kJvOYtiZ2OidN_mLUBLNHkpg",
+        authDomain: "reviewdatabase-16789.firebaseapp.com",
+        databaseURL: "https://reviewdatabase-16789-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "reviewdatabase-16789",
+        storageBucket: "reviewdatabase-16789.appspot.com",
+        messagingSenderId: "1071364665236",
+        appId: "1:1071364665236:web:35293c327cd6a793fda981",
+        measurementId: "G-PJ9GNF4312"
+    };
+    firebase.initializeApp(config);
+
+
+    var isDarkMode = document.body.classList.contains('dark-theme');
+
+    var database = firebase.database();
+    var ctx = document.getElementById('barChart').getContext('2d');
+    var colors = ['Green', 'Red', 'Grey'];
+    
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Positive', 'Negative', 'Neutral'],
+            datasets: [{
+                data: [0, 0, 0],
+                backgroundColor: colors,
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1,
+                barPercentage: 0.5,
+                categoryPercentage: 0.5
+
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color : 'grey'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                     grid:{
+                         color : 'grey'
+                     }        
+                }
+            },
+            onHover: function (event, chartElement) {
+                if (chartElement.length > 0) {
+                    var index = chartElement[0].index;
+                    var infoDiv = document.getElementById('info');
+                    if (index === 0) {
+                        infoDiv.innerHTML = '<p>This is the index that that shows the total positive reviews.</p>';
+                    } else if (index === 1) {
+                        infoDiv.innerHTML = '<p>This is the index that that shows the total negative reviews</p>';
+                    } else if (index === 2) {
+                        infoDiv.innerHTML = '<p>This is the index that that shows the total neutral reviews</p>';
+                    }
+                }
+            }
+        }
+    });
+    
+    
+
+    function OnResetInfo() {
+        
+        var infoDiv = document.getElementById('info');
+        infoDiv.innerHTML = '<p>Please hover in the color in the chart to get the more information about them.</p>';
+    }
+
+    database.ref('SentimentCounts').on('value', function (snapshot) {
+        var counts = snapshot.val();
+        myChart.data.datasets[0].data = [counts.positiveCount, counts.negativeCount, counts.neutralCount];
+        myChart.update();
+    });
+
+</script>
+

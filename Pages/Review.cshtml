@@ -1,0 +1,40 @@
+﻿@page
+@model CQRSApplication.Pages.ReviewModel
+@{
+}
+@using SentimentMLModel_App;
+
+<div>
+<form method="post">
+    <div class="mb-3">
+    <label for="feedback" class="form-label">Feedback</label>
+    <textarea class="form-control" id="feedback" name = "Review" rows="3"></textarea>
+    </div>
+    <button type="submit">Send</button>
+</form>
+    <div>
+        <h2>Reviews</h2>
+            <ul>
+            @foreach (var review in Model.Reviews)
+            { 
+                var prediction = @Model.GetPrediction(review);
+                <li>
+                    <span>Review: @review</span>
+                    <span class="prediction" style="background-color: @Model.GetColor(prediction);">@prediction</span>
+                    <p>--------------------------------------------------</p>
+                    </li>
+            }
+            </ul>
+    </div>
+</div>
+<style>
+    .prediction {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 5px 10px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        cursor: default;
+    }
+</style>
+

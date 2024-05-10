@@ -1,0 +1,28 @@
+﻿@page
+@model CQRSApplication.Pages.ContactModel
+@{
+}
+<h1>Contact Details</h1>
+<div>
+    <form method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="Name">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="Email">
+        </div>
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" class="form-control" id="subject" name="Subject">
+        </div>
+        <div class="mb-3">
+            <label for="comments" class="form-label">Comments</label>
+            <input type="text" class="form-control" id="comments" name="Comment">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        @* @Model.ContactDetails  // either we put the [BindProperty] above the contactdetails or put @Model..... here both work same*@
+    </form>
+</div>
+
